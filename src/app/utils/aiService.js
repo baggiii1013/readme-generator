@@ -766,9 +766,9 @@ Create a comprehensive README that includes a centered header with multiple badg
                     "content": prompt
                 }
             ],
-            "model": "llama3-8b-8192",
+            "model": "qwen/qwen3-32b",
             "temperature": 0.6,
-            "max_tokens": 4000,
+            "max_tokens": 40000,
             "top_p": 0.9,
             "stream": false
         });
@@ -816,9 +816,9 @@ Only include sections that are relevant to this specific repository and use the 
                     "content": prompt
                 }
             ],
-            "model": "llama3-8b-8192",
+            "model": "qwen/qwen3-32b",
             "temperature": 0.6,
-            "max_tokens": 4000,
+            "max_tokens": 40000,
             "top_p": 0.9,
             "stream": false
         });
