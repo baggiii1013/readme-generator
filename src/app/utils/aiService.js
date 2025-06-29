@@ -574,6 +574,12 @@ ${repoAnalysis ? `
 - **File Count**: ${repoTree.length || 0} files analyzed
 ` : 'Repository analysis not available'}
 
+## Repository Structure Context:
+${repoTree ? `
+**Key Files and Directories Detected:**
+${repoTree.slice(0, 50).map(file => `- ${file.path} (${file.type})`).join('\n')}
+` : 'Repository structure not available'}
+
 ## Personalization Context:
 - **Project Type**: ${projectType}
 - **Installation Method**: ${installationSteps}
@@ -638,14 +644,15 @@ ${getDetectedTechBadges(repoAnalysis, repoData)}
 2. **🎯 About The Project** (always include - write 2-3 detailed paragraphs explaining what the project does, its purpose, and value proposition)
 3. **✨ Key Features** (ONLY if features detected - use the pre-generated feature table data above formatted as a table)
 4. **🛠️ Built With** (use pre-generated technology badges, organize by categories)
-5. **🚀 Getting Started** (complete installation guide based on ${installationSteps})
-6. **💻 Usage** (real code examples based on ${usageExamples})
-7. **🧪 Testing** (ONLY if hasTests is true)
-8. **🐳 Docker** (ONLY if hasDocker is true)
-9. **🔄 CI/CD** (ONLY if hasCICD is true)
-10. **🤝 Contributing** (detailed guidelines)
-11. **⭐ Show Your Support** (support section)
-12. **📄 License** (license information)
+5. **� Project Structure** (always include - show the repository file/folder structure with descriptions)
+6. **�🚀 Getting Started** (complete installation guide based on ${installationSteps})
+7. **💻 Usage** (real code examples based on ${usageExamples})
+8. **🧪 Testing** (ONLY if hasTests is true)
+9. **🐳 Docker** (ONLY if hasDocker is true)
+10. **🔄 CI/CD** (ONLY if hasCICD is true)
+11. **🤝 Contributing** (detailed guidelines)
+12. **⭐ Show Your Support** (support section)
+13. **📄 License** (license information)
 
 ### ✨ Key Features Section Format (use this EXACT structure):
 <div align="center">
@@ -666,6 +673,30 @@ ${featureTable.map(f => `| ${f.icon} **${f.name}** | ${f.description} | ${f.stat
 [Add relevant tool badges if detected]
 
 </div>
+
+### 📁 Project Structure Section Format (ALWAYS include this section):
+**CRITICAL**: Create a project structure that shows the ACTUAL files and folders from this repository, NOT a generic template.
+
+Use the "Repository Structure Context" data above to build a real directory tree. Show the actual file structure with:
+- Real directory names that exist in the repository
+- Real file names that exist in the repository  
+- Meaningful comments for important directories and files
+- Simple indentation to show hierarchy
+- Focus on the most important files and folders (max 20 items)
+
+Format example (but use REAL files from the repository):
+\`\`\`
+repository-name/
+├── actual-config-file.json    # Real configuration file
+├── real-readme.md             # Actual README file
+├── actual-folder/             # Real directory from repo
+│   ├── real-file.js          # Actual source file
+│   └── another-real-file.js  # Another actual file
+└── another-real-folder/       # Another real directory
+    └── real-component.jsx    # Real component file
+\`\`\`
+
+DO NOT use generic folder names like "src/components/" unless they actually appear in the Repository Structure Context.
 
 🎨 **COMPLETE CONTENT EXAMPLES:**
 
@@ -692,6 +723,23 @@ Provide concrete examples:
 - Command-line examples where applicable
 - Configuration examples
 - Common use cases and workflows
+
+### Project Structure Section Requirements:
+Generate a REAL project structure based on the actual repository files listed in "Repository Structure Context". 
+DO NOT use generic template folders like "src/components/" unless they actually exist in the repository.
+
+Rules for Project Structure:
+1. ONLY show directories and files that actually exist (from Repository Structure Context)
+2. Create a meaningful hierarchy showing the actual folder structure  
+3. Add descriptive comments for important files and directories
+4. Use simple indentation and formatting for tree structure
+5. Group related files logically
+6. Show configuration files at root level
+7. Highlight main entry points and key directories
+8. Maximum depth of 3 levels for readability
+9. Focus on the most important 15-20 files/folders
+
+CRITICAL: Base the structure ONLY on files listed in "Repository Structure Context" - never use placeholder directories that don't exist.
 
 ### Contributing Section Requirements:
 - Fork and clone instructions
@@ -753,7 +801,7 @@ Repository context:
 - Owner: ${repoData.owner.login}
 - URL: ${repoData.html_url}
 
-Create a comprehensive README that includes a centered header with multiple badge rows, detailed sections, and professional formatting. Focus on visual appeal with proper badge arrangements and only include features that exist or are specifically requested.`;
+Create a comprehensive README that includes a centered header with multiple badge rows, detailed sections, project structure layout, and professional formatting. Focus on visual appeal with proper badge arrangements and only include features that exist or are specifically requested.`;
 
         const chatCompletion = await groq.chat.completions.create({
             "messages": [
@@ -801,6 +849,7 @@ Create a comprehensive, professional README with:
 - Status badges for license, stars, forks
 - Activity badges for issues, contributors, last commit
 - Detailed sections with proper formatting
+- Project structure section showing repository layout
 - Professional presentation and visual appeal
 
 Only include sections that are relevant to this specific repository and use the correct badge URLs with the repository owner and name.`;
